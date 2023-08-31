@@ -12,7 +12,7 @@ struct DrivingInfoView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @AppStorage("carName") var carName: String = ""
     @State var purpose: String
-    let drivingInfo: DrivingInfo
+    var drivingInfo: DrivingInfo
     var body: some View {
         NavigationStack {
             VStack{
@@ -105,6 +105,7 @@ struct DrivingInfoView: View {
                             Spacer()
                             NavigationLink {
                                 EditChargeView(drivingInfoViewModel: drivingInfoViewModel, drivingInfo: drivingInfo, type: "유류비")
+//                                EditChargeView(drivingInfoViewModel: drivingInfoViewModel, drivingInfo: drivingInfo, type: "유류비")
                             } label: {
                                 VStack(alignment: .leading){
                                     Image(systemName: "fuelpump")
@@ -150,9 +151,9 @@ struct DrivingInfoView: View {
                 CustomButton(action: {
                     Task {
                         await drivingInfoViewModel.updateDrivingInfo(["purpose": purpose,
-                                                                      "tollFee":123,
-                                                                      "fuelFee":123,
-                                                                      "depriciate":123])
+                                                                      "tollFee":drivingInfo.tollFee,
+                                                                      "fuelFee":drivingInfo.fuelFee,
+                                                                      "depriciate":drivingInfo.depreciation])
                     }
                     
                 }) {
@@ -185,11 +186,14 @@ struct DrivingInfoView: View {
             }
         .navigationBarBackButtonHidden()
         }
+        .onAppear {
+            drivingInfoViewModel.updateDrivingInfoData()
+        }
     }
 }
 
-struct DrivingInfoView_Previews: PreviewProvider {
-    static var previews: some View {
-        DrivingInfoView(drivingInfoViewModel: DrivingInfoViewModel(), purpose: "출장", drivingInfo: DrivingInfo(id: "", date: "2023.08.30.(수)", purpose: "출장", totalDistance: 0, startAddress: "출발", startTime: "15:33", endAddress: "도착", endTime: "13:33", fuelFee: 123, tollFee: 123, depreciation: 123))
-    }
-}
+//struct DrivingInfoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DrivingInfoView(drivingInfoViewModel: DrivingInfoViewModel(), purpose: "출장", drivingInfo: DrivingInfo(id: "", date: "2023.08.30.(수)", purpose: "출장", totalDistance: 0, startAddress: "출발", startTime: "15:33", endAddress: "도착", endTime: "13:33", fuelFee: 123, tollFee: 123, depreciation: 123))
+//    }
+//}

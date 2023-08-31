@@ -19,7 +19,6 @@ struct MapView: View {
                         .toolbar(.hidden, for: .tabBar)
                         .ignoresSafeArea(.all, edges: .bottom)
                         .zIndex(2)
-                
             } else {
                 ZStack {
                     ZStack {
@@ -28,7 +27,6 @@ struct MapView: View {
                                 MapWrapperView(mainViewModel: mainViewModel, drivingInfoViewModel: drivingInfoViewModel, tapSearchBar: $tapSearchBar, address: coordinator.address, currentAddress: coordinator.isLocationDataLoaded ? coordinator.currentAddress[1] : coordinator.currentAddress[0])
                             }
                         }
-                        
                     }
                     .zIndex(1)
                     // FIXME: - 하단 탭바 이슈(가려짐)

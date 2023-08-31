@@ -53,29 +53,21 @@ struct MapBottomSheet: View {
                 }
                 
                 HStack {
-                    if isStartedNavi {
-                        CustomButton {
-                            mainViewModel.active = true
-                            mainViewModel.startAddress = coordinator.currentAddress[1]
-                            Task {
-                                let id = UUID().uuidString
-                                await drivingInfoViewModel.saveStartDrivingInfo(id: id, drivingInfo: DrivingInfo(id: id, date: drivingDate, purpose: "", totalDistance: 0, startAddress: coordinator.currentAddress[1], startTime: currentTime, endAddress: "", endTime: "", fuelFee: 0, tollFee: 0, depreciation: 0))
-                                drivingInfoViewModel.recentRef = id
-                                
-                                print("시작시점 경로:\(drivingInfoViewModel.recentRef)")
-                            }
-                            isStartedNavi.toggle()
-                        } content: {
-                             Text("안내시작")
+                    CustomButton {
+                        mainViewModel.active = true
+                        mainViewModel.startAddress = coordinator.currentAddress[1]
+                        Task {
+                            let id = UUID().uuidString
+                            await drivingInfoViewModel.saveStartDrivingInfo(id: id, drivingInfo: DrivingInfo(id: id, date: drivingDate, purpose: "", totalDistance: 0, startAddress: coordinator.currentAddress[1], startTime: currentTime, endAddress: "", endTime: "", fuelFee: 0, tollFee: 0, depreciation: 0))
+                            drivingInfoViewModel.recentRef = id
+                            
+                            print("시작시점 경로:\(drivingInfoViewModel.recentRef)")
                         }
-                    } else {
-                        CustomButton {
-                            coordinator.createRoute()
-                            isStartedNavi.toggle()
-                        } content: {
-                            Text("길찾기")
-                        }
+                        isStartedNavi.toggle()
+                    } content: {
+                        Text("안내시작")
                     }
+                    .padding(.bottom, 50)
                 }
                 
                 Spacer()

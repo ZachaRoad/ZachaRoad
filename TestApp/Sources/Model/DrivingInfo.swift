@@ -10,7 +10,7 @@ import Foundation
 struct DrivingInfo: Identifiable, Codable {
     let id: String
     let date: String
-    let purpose: String
+    var purpose: String
     let totalDistance: Int
     let startAddress: String
     let startTime: String

@@ -94,7 +94,6 @@ class DrivingInfoViewModel: ObservableObject {
             }
         }
     }
-    
     func fetchDrivingInfos(targetYear: String, targetMonth: String) async {
         let documentRef = Firestore.firestore().collection("Users").document(carReg).collection("DrivingInfo")
         
@@ -134,5 +133,5 @@ class DrivingInfoViewModel: ObservableObject {
             }
         }
     }
-
+    
 }
