@@ -32,6 +32,7 @@ struct DrivingInfo: Identifiable, Codable {
                 "fuelFee": fuelFee,
                 "depreciation": depreciation]
     }
+    
     func calculateTime(_ date: Date) -> String {
         let format = DateFormatter()
         format.locale = Locale(identifier: "ko_KR")
