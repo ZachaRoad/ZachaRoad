@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @StateObject private var coordinator: Coordinator = Coordinator.shared
+    @ObservedObject var carRegViewModel: CarRegistrationViewModel
     @ObservedObject var viewModel: MainViewModel
     @ObservedObject var drivingInfoViewModel: DrivingInfoViewModel
     
@@ -26,13 +27,13 @@ struct MainView: View {
             .toolbar(.hidden, for: .tabBar)
             .edgesIgnoringSafeArea(.all)
         } else {
-            MapView(mainViewModel: viewModel, drivingInfoViewModel: drivingInfoViewModel)
+            MapView(mainViewModel: viewModel, drivingInfoViewModel: drivingInfoViewModel, carRegViewModel: carRegViewModel)
         }
     }
 }
 
 struct TestNavigationView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(viewModel: MainViewModel(), drivingInfoViewModel: DrivingInfoViewModel())
+        MainView(carRegViewModel: CarRegistrationViewModel(), viewModel: MainViewModel(), drivingInfoViewModel: DrivingInfoViewModel())
     }
 }

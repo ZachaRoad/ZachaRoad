@@ -12,19 +12,13 @@ struct EditChargeView: View {
     @ObservedObject var drivingInfoViewModel: DrivingInfoViewModel
     let drivingInfo: DrivingInfo
     let type: String
-    @State var charge: String = "0"
+    @Binding var charge: String
     @State var chargeInfo: String = "법인카드"
     var body: some View {
         VStack(alignment: .center){
             VStack(alignment: .leading) {
-                HStack(alignment: .bottom){
-                    Text("운행정보")
-                        .font(.title2)
-                        .bold()
-                    Spacer()
-                }
-                .padding()
-                Text("지출 등록")
+                
+                Text("지출 정보")
                     .font(.title3)
                     .foregroundColor(.representColor)
                     .bold()
@@ -123,15 +117,14 @@ struct EditChargeView: View {
                 Button {
                     if type == "유류비" {
                         Task {
-                            await drivingInfoViewModel.updateDrivingInfo(["fuelFee":charge])
+                            await drivingInfoViewModel.updateDrivingInfo(drivingInfo, ["fuelFee":Int(charge)])
                         }
                         
                     } else if type == "통행료" {
                         Task {
-                            await drivingInfoViewModel.updateDrivingInfo(["tollFee":charge])
+                            await drivingInfoViewModel.updateDrivingInfo(drivingInfo, ["tollFee":Int(charge)])
                         }
                     }
-                    self.presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("등록")
                         .font(.title2)
@@ -144,6 +137,38 @@ struct EditChargeView: View {
             }
             .padding()
         }
+        .alert(
+            "저장완료",
+            isPresented: $drivingInfoViewModel.isSaved
+        ) {
+            Button {
+                self.presentationMode.wrappedValue.dismiss()
+                
+            } label: {
+                Text("확인")
+            }
+        } message: {
+            Text("저장되었습니다")
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    self.presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image("backButton")
+                        .resizable()
+                        .frame(width: 60, height: 60)
+                        .aspectRatio(contentMode: .fit)
+                        .offset(y: 5)
+                }
+            }
+            ToolbarItem(placement: .navigationBarLeading) {
+                Text("지출수정")
+                    .font(.title2)
+                    .bold()
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 

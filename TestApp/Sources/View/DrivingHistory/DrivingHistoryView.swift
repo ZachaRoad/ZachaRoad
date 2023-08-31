@@ -11,27 +11,26 @@ struct DrivingHistoryView: View {
     @ObservedObject var drivingInfoViewModel: DrivingInfoViewModel
     var body: some View {
         VStack {
-            HStack(alignment: .bottom){
-                Text("운행기록 전송")
-                    .font(.title2)
-                    .bold()
-                Spacer()
-                //TODO: filter
-            }
-            .padding()
             Spacer()
-            LazyVStack{
-                ForEach(drivingInfoViewModel.drivingInfosAll) { info in
-                    Text("\(info.date) 운행기록")
+            Text("일지를 선택하세요")
+                .font(.title)
+                .bold()
+                .padding(.bottom)
+            Divider()
+                .padding(.horizontal)
+            ScrollView{
+                LazyVStack{
+                    ForEach(drivingInfoViewModel.allDrivingInfos) { info in
+                        SendEmailView(drivingInfo: info)
+                            .padding(.vertical)
+                    }
                 }
             }
-            Spacer()
-            SendEmailView(drivingInfo: DrivingInfo(id: "", date: "", purpose: "", totalDistance: 0, startAddress: "", startTime: "", endAddress: "", endTime: "", fuelFee: 0, tollFee: 0, depreciation: 0))
+            .padding(.top)
         }
         .task {
-            drivingInfoViewModel.drivingInfosAll
+            await drivingInfoViewModel.updateDrivingInfoData()
         }
-
     }
 }
 

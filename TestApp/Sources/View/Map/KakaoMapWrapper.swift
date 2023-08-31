@@ -114,6 +114,13 @@ final class Coordinator: NSObject, ObservableObject, MTMapViewDelegate, MTMapRev
         view.animate(with: cameraUpdate)
     }
     
+    func moveToBookmarkDestination(_ lat: Double, _ long: Double) {
+        let destination = MTMapPoint(geoCoord: MTMapPointGeo(latitude: lat, longitude: long))
+        let cameraUpdate = MTMapCameraUpdate.move(destination)
+        view.setMapCenter(destination, animated: true)
+        view.animate(with: cameraUpdate)
+    }
+    
     // MARK: - 지도 롱탭 시 이벤트 발생 메서드
     func mapView(_ mapView: MTMapView!, longPressOn mapPoint: MTMapPoint!) {
         print("롱탭 이벤트 발생!")

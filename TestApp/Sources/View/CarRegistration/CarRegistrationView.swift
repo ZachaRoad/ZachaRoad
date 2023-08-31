@@ -75,13 +75,16 @@ struct CarRegistrationView: View {
                             print("차이름: \(name)")
                             self.carName = name
                             self.carReg = carNum
+                            mainViewModel.createUser(
+                                user: UserInfo(
+                                    id: carNum,
+                                    ownerName: ownerName,
+                                    carNumber: carNum)
+                            )
                         } else {
                             print("차 이름을 가져오지 못했습니다.")
                         }
                     }
-                    mainViewModel.createUser(user: UserInfo(id: carNum,
-                                                            ownerName: ownerName,
-                                                            carNumber: carNum))
                 }) {
                     Text("등록하기")
                 }

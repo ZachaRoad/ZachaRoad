@@ -15,18 +15,30 @@ struct SendEmailView: View {
     
     var body: some View {
         VStack {
-            Button("Send Email") {
+            Button {
                 if MFMailComposeViewController.canSendMail() {
                     self.isShowingMailView.toggle()
                 } else {
                     self.isShowingAlert.toggle()
                 }
+            } label: {
+                HStack{
+                    Text("\(drivingInfo.date) 운행일지")
+                        .foregroundColor(.black)
+                        .font(.title3)
+                    Spacer()
+                    Image(systemName: "paperplane")
+                        .bold()
+                        .foregroundColor(.representColor)
+                    
+                }
+                .padding(.horizontal, 20)
             }
             .sheet(isPresented: $isShowingMailView) {
                 MailView(drivingInfo: drivingInfo, result: self.$isShowingMailView)
             }
             .alert(isPresented: $isShowingAlert) {
-                Alert(title: Text("Cannot Send Email"), message: Text("Your device could not send e-mail. Please check e-mail configuration and try again."), dismissButton: .default(Text("OK")))
+                Alert(title: Text("메일 전송 실패"), message: Text("시뮬레이터에선 메일을 보낼 수 없습니다"), dismissButton: .default(Text("확인")))
             }
         }
         
@@ -38,3 +50,4 @@ struct SendEmailView_Previews: PreviewProvider {
         SendEmailView(drivingInfo: DrivingInfo(id: "", date: "", purpose: "", totalDistance: 0, startAddress: "", startTime: "", endAddress: "", endTime: "", fuelFee: 0, tollFee: 0, depreciation: 0))
     }
 }
+

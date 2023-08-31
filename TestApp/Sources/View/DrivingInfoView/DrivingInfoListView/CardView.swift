@@ -55,13 +55,15 @@ struct CardView: View {
                     HStack(alignment: .center) {
                         HStack {
                             Image(systemName: "car.circle.fill")
-                            Text("총 운행 " + "" + "km")
+                            Text("\(drivingInfo.totalDistance)" + "km")
                                 .padding(.trailing, 5)
+                                .font(.subheadline)
                             Image(systemName: "wonsign.circle.fill")
-                            Text("총 비용 " +
+                            Text(
                                  "\(drivingInfo.fuelFee + drivingInfo.tollFee + drivingInfo.depreciation)"
                                  + "원"
                             )
+                            .font(.subheadline)
                         }
                         .padding()
                         .background {

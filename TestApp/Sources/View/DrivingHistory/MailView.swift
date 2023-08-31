@@ -16,15 +16,13 @@ struct MailView: UIViewControllerRepresentable {
     func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
         let mail = MFMailComposeViewController()
         mail.mailComposeDelegate = context.coordinator
-        mail.setSubject("\(drivingInfo.id)님의 \(drivingInfo.date) 운행기록")
+        mail.setSubject("\(drivingInfo.date) \(drivingInfo.date) 운행기록")
         mail.setToRecipients(["example@example.com"])
         
+        
         var base64Image = ""
-        if let image = UIImage(named: "YourImageNameInAssets") {
-            let resizedImage = resizeImage(image: image, targetSize: CGSize(width: 80, height: 80))
-            if let imageData = resizedImage.jpegData(compressionQuality: 1.0) {
-                base64Image = imageData.base64EncodedString()
-            }
+        if let image = UIImage(named: "logoForEmail"), let imageData = image.jpegData(compressionQuality: 1.0) {
+            base64Image = imageData.base64EncodedString()
         }
         
         let totalCost = drivingInfo.fuelFee + drivingInfo.tollFee + drivingInfo.depreciation
@@ -65,7 +63,7 @@ struct MailView: UIViewControllerRepresentable {
         </head>
         <body>
         
-        <h2>\(drivingInfo.id)님의 \(drivingInfo.date) 운행기록</h2>
+        <h2>\(drivingInfo.date) \(drivingInfo.date) 운행기록</h2>
         
         <table>
             <tr>
@@ -101,11 +99,14 @@ struct MailView: UIViewControllerRepresentable {
                 <td>\(drivingInfo.depreciation)</td>
             </tr>
         </table>
-        
-        <!-- 이미지 삽입 -->
-                <img src="data:image/jpeg;base64,\(base64Image)" alt="Your Image" />
+        <br>
+        <br>
+        <br>
+        <br>
+
         
         <div class="footer">
+            <img src="data:image/jpeg;base64,\(base64Image)" alt="Your Image" />
             <p>똑똑한 회사원은 자차로드를 쓴다</p>
         </div>
         

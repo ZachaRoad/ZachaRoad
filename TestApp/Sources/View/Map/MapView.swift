@@ -10,6 +10,7 @@ import SwiftUI
 struct MapView: View {
     @ObservedObject var mainViewModel: MainViewModel
     @ObservedObject var drivingInfoViewModel: DrivingInfoViewModel
+    @ObservedObject var carRegViewModel: CarRegistrationViewModel
     @StateObject var coordinator: Coordinator = Coordinator.shared
     @State private var tapSearchBar: Bool = false
     var body: some View {
@@ -24,7 +25,7 @@ struct MapView: View {
                     ZStack {
                         VStack(alignment: .leading) {
                             VStack(alignment: .leading) {
-                                MapWrapperView(mainViewModel: mainViewModel, drivingInfoViewModel: drivingInfoViewModel, tapSearchBar: $tapSearchBar, address: coordinator.address, currentAddress: coordinator.isLocationDataLoaded ? coordinator.currentAddress[1] : coordinator.currentAddress[0])
+                                MapWrapperView(mainViewModel: mainViewModel, drivingInfoViewModel: drivingInfoViewModel, carRegViewModel: carRegViewModel, tapSearchBar: $tapSearchBar, address: coordinator.address, currentAddress: coordinator.isLocationDataLoaded ? coordinator.currentAddress[1] : coordinator.currentAddress[0])
                             }
                         }
                     }
@@ -51,6 +52,6 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(mainViewModel: MainViewModel(), drivingInfoViewModel: DrivingInfoViewModel())
+        MapView(mainViewModel: MainViewModel(), drivingInfoViewModel: DrivingInfoViewModel(), carRegViewModel: CarRegistrationViewModel())
     }
 }

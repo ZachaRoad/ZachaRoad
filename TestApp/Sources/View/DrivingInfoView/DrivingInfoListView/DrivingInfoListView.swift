@@ -24,8 +24,14 @@ struct DrivingInfoListView: View {
                     //TODO: filter
                 }
                 .padding()
-                SelectionBlockView(selectedMonth: $month, selectedYear: $year, totalTrip: drivingInfoViewModel.drivingInfos.count, totalKM: totalKM, totalFee: totalFee)
-                    .padding(.bottom, 5)
+                SelectionBlockView(
+                    selectedMonth: $month,
+                    selectedYear: $year,
+                    totalTrip: drivingInfoViewModel.drivingInfos.count,
+                    totalKM: addDistance(drivingInfo: drivingInfoViewModel.drivingInfos),
+                    totalFee: addFee(drivingInfo: drivingInfoViewModel.drivingInfos)
+                )
+                .padding(.bottom, 5)
                 if drivingInfoViewModel.drivingInfos.isEmpty {
                     ZStack{
                         Color.gray.opacity(0.3)
@@ -53,10 +59,6 @@ struct DrivingInfoListView: View {
         }
         .task {
             await drivingInfoViewModel.fetchDrivingInfos(targetYear: String(year), targetMonth: String(month))
-            for i in drivingInfoViewModel.drivingInfos {
-                totalKM += i.totalDistance
-                totalFee += (i.tollFee + i.fuelFee + i.depreciation)
-            }
         }
         .onChange(of: month) { newMonth in
             Task{
@@ -76,6 +78,22 @@ struct DrivingInfoListView: View {
                 }
             }
         }
+    }
+    
+    func addDistance(drivingInfo: [DrivingInfo]) -> Int {
+        var result: Int = 0
+        for info in drivingInfo {
+            result += info.totalDistance
+        }
+        return result
+    }
+    
+    func addFee(drivingInfo: [DrivingInfo]) -> Int {
+        var result: Int = 0
+        for info in drivingInfo {
+            result += (info.tollFee + info.fuelFee + info.depreciation)
+        }
+        return result
     }
 }
 

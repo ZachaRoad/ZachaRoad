@@ -12,6 +12,12 @@ struct DrivingInfoView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @AppStorage("carName") var carName: String = ""
     @State var purpose: String
+    @State var isPurposeSelecting: Bool = false
+    @State var fuelCharge: String = ""
+    @State var tollCharge: String = ""
+
+    let purposeList = ["출장","출퇴근","개인용무"]
+    
     var drivingInfo: DrivingInfo
     var body: some View {
         NavigationStack {
@@ -27,64 +33,116 @@ struct DrivingInfoView: View {
                     
                     HStack {
                         Text("운행 목적")
+                            .bold()
                             .foregroundColor(.representColor)
-                        DropDownMenu(menus: ["출장", "출퇴근", "개인용무"], selection: $purpose)
+                        Menu {
+                            ForEach(purposeList, id: \.self) { string in
+                                Button(string) {
+                                    purpose = string
+                                    isPurposeSelecting = true
+                                }
+                            }
+                        } label: {
+                            HStack{
+                                if purpose == "" {
+                                    Text("미선택")
+                                }else{
+                                    Text("\(purpose)")
+                                }
+                                Spacer()
+                                Image("DropDownImage")
+                                    .rotationEffect(.degrees( isPurposeSelecting ? -180 : 0))
+                            }
+                            .foregroundColor(.primary)
+                        }
+                        .onTapGesture {
+                            isPurposeSelecting = false
+                        }
                     }
                     
                     Divider()
                     HStack {
                         Text("차량 정보")
+                            .bold()
                             .foregroundColor(.representColor)
                         Text("\(carName)")
                     }
                     Divider()
-                    HStack(alignment: .top) {
-                        Text("운행정보")
-                            .foregroundColor(.representColor)
-                            .padding(.trailing, 5)
+                    
+                    VStack(alignment: .leading) {
+                        HStack{
+                            Text("운행정보")
+                                .foregroundColor(.lightGray)
+                                .bold()
+                                .padding(.trailing, 5)
+                            Spacer()
+                        }
                         
-                        VStack(alignment: .leading) {
-                            HStack(alignment: .top) {
-                                VStack {
-                                    Text(drivingInfo.startTime)
+                        
+                        HStack(alignment: .top) {
+                            VStack {
+                                Text(drivingInfo.startTime)
+                                    .font(.subheadline)
+                                    .padding(.bottom, 35)
+                                Text(drivingInfo.endTime)
+                                    .font(.subheadline)
+                            }
+                            VStack {
+                                Image("DepartureDestination")
+                            }
+                            VStack(alignment: .leading) {
+                                VStack(alignment: .leading){
+                                    Text("출발지")
                                         .font(.subheadline)
-                                        .padding(.bottom, 35)
-                                    Text(drivingInfo.endTime)
-                                        .font(.subheadline)
-                                }
-                                VStack {
-                                    Image("DepartureDestination")
-                                }
-                                VStack(alignment: .leading) {
+                                        .foregroundColor(.lightGray)
                                     Text(drivingInfo.startAddress)
                                         .font(.subheadline)
-                                        .padding(.bottom, 35)
+                                }
+                                .padding(.bottom, 17)
+                                VStack(alignment: .leading){
+                                    Text("목적지")
+                                        .font(.subheadline)
+                                        .foregroundColor(.lightGray)
                                     Text(drivingInfo.endAddress)
                                         .font(.subheadline)
                                 }
-                                VStack{
-                                    
-                                }
                             }
-                            .padding(.bottom, 5)
-                            
-                            // 지도 들어갈 공간
-                            ZStack(alignment: .bottom) {
+                            VStack{
                                 
                             }
-                            .frame(width: 100, height: 100)
-                            .background(Color.gray)
-                            .cornerRadius(15)
                         }
+                        .padding(.bottom)
+                        HStack {
+                            Spacer()
+                            Image(systemName: "car.circle.fill")
+                            Text("\(drivingInfo.totalDistance)" + "km")
+                                .bold()
+                                .padding(.trailing, 5)
+                                .font(.subheadline)
+                            Spacer()
+                            Image(systemName: "wonsign.circle.fill")
+                            Text(
+                                "\(drivingInfo.fuelFee + drivingInfo.tollFee + drivingInfo.depreciation)"
+                                + "원"
+                            )
+                            .bold()
+                            .font(.subheadline)
+                            Spacer()
+                        }
+                        .padding(.bottom)
                     }
+                    
                     Divider()
-                    HStack(alignment: .top) {
-                        Text("메모")
-                            .foregroundColor(.representColor)
-                            .padding(.trailing, 30)
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Text("차량 정보")
+                                .bold()
+                                .foregroundColor(.representColor)
+                            Spacer()
+                        }
                         HStack{
                             NavigationLink {
-                                EditChargeView(drivingInfoViewModel: drivingInfoViewModel, drivingInfo: drivingInfo, type: "통행료")
+                                EditChargeView(drivingInfoViewModel: drivingInfoViewModel, drivingInfo: drivingInfo, type: "통행료", charge: $tollCharge)
                             } label: {
                                 VStack(alignment: .leading){
                                     Image(systemName: "mappin.and.ellipse")
@@ -103,9 +161,9 @@ struct DrivingInfoView: View {
                                 }
                             }
                             Spacer()
+                            
                             NavigationLink {
-                                EditChargeView(drivingInfoViewModel: drivingInfoViewModel, drivingInfo: drivingInfo, type: "유류비")
-//                                EditChargeView(drivingInfoViewModel: drivingInfoViewModel, drivingInfo: drivingInfo, type: "유류비")
+                                EditChargeView(drivingInfoViewModel: drivingInfoViewModel, drivingInfo: drivingInfo, type: "유류비", charge: $fuelCharge)
                             } label: {
                                 VStack(alignment: .leading){
                                     Image(systemName: "fuelpump")
@@ -132,7 +190,6 @@ struct DrivingInfoView: View {
                                     .foregroundColor(.black)
                                 HStack {
                                     Text("감가상각")
-                                    Image(systemName: "square.and.pencil")
                                 }
                                 .foregroundColor(.gray)
                                 Text("\(drivingInfo.depreciation)")
@@ -143,6 +200,7 @@ struct DrivingInfoView: View {
                             .padding(.trailing, 3)
                         }
                     }
+                    .padding(.vertical)
                     
                 }
                 .padding(.horizontal)
@@ -150,32 +208,45 @@ struct DrivingInfoView: View {
                 //TODO: 저장버튼
                 CustomButton(action: {
                     Task {
-                        await drivingInfoViewModel.updateDrivingInfo(["purpose": purpose,
-                                                                      "tollFee":drivingInfo.tollFee,
-                                                                      "fuelFee":drivingInfo.fuelFee,
-                                                                      "depriciate":drivingInfo.depreciation])
+                        await drivingInfoViewModel.updateDrivingInfo(drivingInfo, [
+                            "purpose" : purpose,
+                            "tollFee" : drivingInfo.tollFee,
+                            "fuelFee" : drivingInfo.fuelFee])
                     }
-                    
                 }) {
                     Text("저장하기")
                 }
                 .padding(.vertical)
             }
+            .onAppear{
+                fuelCharge = String(drivingInfo.fuelFee)
+                tollCharge = String(drivingInfo.tollFee)
+            }
+            .alert(
+                "저장완료",
+                isPresented: $drivingInfoViewModel.isSaved
+            ) {
+                Button {
+                    self.presentationMode.wrappedValue.dismiss()
+                    
+                } label: {
+                    Text("확인")
+                }
+            } message: {
+                Text("저장되었습니다")
+            }
+            
+            .padding()
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         self.presentationMode.wrappedValue.dismiss()
                     } label: {
-                        ZStack {
-                            Circle()
-                                .stroke(lineWidth: 1)
-                                .frame(width: 25, height: 25)
-                            
-                            Image(systemName: "chevron.left")
-                                .frame(width: 25, height: 25)
-                        }
-                        .foregroundColor(.gray)
-                        
+                        Image("backButton")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                            .aspectRatio(contentMode: .fit)
+                            .offset(y: 5)
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -184,10 +255,7 @@ struct DrivingInfoView: View {
                         .bold()
                 }
             }
-        .navigationBarBackButtonHidden()
-        }
-        .onAppear {
-            drivingInfoViewModel.updateDrivingInfoData()
+            .navigationBarBackButtonHidden()
         }
     }
 }

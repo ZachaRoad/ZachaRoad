@@ -10,6 +10,8 @@ import Combine
 
 class CarRegistrationViewModel: ObservableObject {
     @Published var carName: String = ""
+    @Published var carPrice: String = ""
+    @Published var carFuelCo: String = ""
     @Published var isLoadingData: Bool = false
     @Published var isShowingAlert: Bool = false
     
@@ -21,9 +23,10 @@ class CarRegistrationViewModel: ObservableObject {
             params: ["REGINUMBER": "\(registratedNum)", "OWNERNAME": "\(ownerName)"]) { [self] (result: Result<CarData, Error>) in
             switch result {
             case .success(let carData):
-                print("성공 ! Car Name: \(carData.data.CARNAME)")
                 completion(carData.data.CARNAME)
                 carName = carData.data.CARNAME
+                carPrice = carData.data.PRICE
+                carFuelCo = carData.data.FUELECO
                 self.isLoadingData = false
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")

@@ -83,7 +83,7 @@ struct MapBottomSheet: View {
                     Task {
                         print("alert 태스크 진입")
                         print("종료시점 경로:\(drivingInfoViewModel.recentRef)")
-                        await drivingInfoViewModel.updateDrivingInfo(["endAddress":endAddress,"endTime":currentTime])
+                        await drivingInfoViewModel.updateRecentDrivingInfo(["endAddress":endAddress,"endTime":currentTime])
                         
                     }
                 } label: {

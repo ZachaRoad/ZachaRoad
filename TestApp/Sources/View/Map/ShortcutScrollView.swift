@@ -43,10 +43,9 @@ struct ShortcutScrollView: View {
             HStack{
                 Spacer()
                 Button {
-                    //현재 위치로 길찾기 버튼
                     destinationSelected = true
                 } label: {
-                    Image("BookMark")
+                    Image("naviButton")
                         .resizable()
                         .frame(width: 85, height: 85)
                 }
@@ -57,7 +56,7 @@ struct ShortcutScrollView: View {
                 HStack(spacing: 8) {
                     ForEach(bookMarkList) { bookmark in
                         CustomCardButton(text: bookmark.bookMarkName, imageName: bookmark.bookMarkImage, action: {
-                            //bookmark.address로 카메라가 이동
+                            Coordinator.shared.moveToBookmarkDestination(bookmark.bookMarkAddress.0, bookmark.bookMarkAddress.1)
                             destinationSelected = true
                         })
                     }
