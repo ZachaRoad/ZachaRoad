@@ -11,7 +11,8 @@
 
 ## 🚘 프로젝트 소개
 
-네비게이션과 연동하여 업무용 직원 차량 이용 관리, 업무용 운전기록 전산화 관리를 한번에!
+2023 네모톤 본선 진출 작품입니다.
+네비게이션과 연동하여 업무용 직원 차량 이용 관리, 업무용 운전기록 전산화 관리를 자동화해주는 앱입니다.
 
 <br />
 
@@ -34,6 +35,7 @@
 |![image](https://hackmd.io/_uploads/BJEnySBP6.png)|![image](https://hackmd.io/_uploads/By2XrBHDa.png)|![RPReplay_Final1693535603 2 (1)](https://hackmd.io/_uploads/HJsMHrBP6.gif)|
 
 <br />
+
 ---
 ## 💡 주요 기능
 - **`앱 진입화면`** [차량제원API](https://dataapi.co.kr/dLab/mdh_api.do)를 사용해 등록된 차량을 조회하고 이를 기반으로 회원가입을 할 수 있습니다.
@@ -45,6 +47,7 @@
 - **`운행일지 관리`** 선택한 운행일지를 정해진 양식에 맞게 이메일로 작성합니다. 사용자는 받는 이의 이메일 주소만 입력하면 됩니다.
 
 <br />
+
 ---
 ## 💻 개발 도구 및 활용한 기술
 - 개발 언어 : Swift, Objective-C
