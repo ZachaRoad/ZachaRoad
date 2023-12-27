@@ -24,7 +24,7 @@
 
 |홈 화면|목적지 검색|경로탐색|
 |:----:|:----:|:----:|
-|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/0b2895d1-c073-4f65-a1b1-a367f9e2640e)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/acd68d5b-46f6-4c64-a26f-017b6cc126c6)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/d00759e4-488a-440d-86af-6399451d965e)|
+|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/0b2895d1-c073-4f65-a1b1-a367f9e2640e)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/d00759e4-488a-440d-86af-6399451d965e)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/acd68d5b-46f6-4c64-a26f-017b6cc126c6)|
 
 |네비게이션|월별 운행내역|운행정보|
 |:----:|:----:|:----:|
