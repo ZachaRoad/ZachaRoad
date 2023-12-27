@@ -28,7 +28,7 @@
 
 |네비게이션|월별 운행내역|운행정보|
 |:----:|:----:|:----:|
-|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/c52ce4c0-fe57-4bb1-9260-fd997c27246a)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/f4aef9f4-7834-4094-b287-3613f6d059da)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/386b9de9-887c-4290-a15a-beda87d02d1a)|
+|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/c52ce4c0-fe57-4bb1-9260-fd997c27246a)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/aff8f05e-1a00-4284-b152-92f4ecde6151)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/386b9de9-887c-4290-a15a-beda87d02d1a)|
 
 |지출내역 수정|운행일지 관리|운행일지 전송(이메일)|
 |:--------:|:-------:|:--------------:|
