@@ -20,7 +20,7 @@
 ## 📱 스크린샷
 |앱 진입 화면|차량 등록 실패|위치 정보 동의|
 |:----:|:----:|:----:|
-|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/4261c3f6-455a-4515-8d91-09d4c6b226be)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/4d4cf677-99dc-493f-ada8-d0d9003d94e4)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/cfcc7fdb-d2c4-42f9-a4ee-4dfa43367ae1)|
+|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/7de18b47-abba-4a04-9e32-7c954b322232)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/4261c3f6-455a-4515-8d91-09d4c6b226be)|![image](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/4d4cf677-99dc-493f-ada8-d0d9003d94e4)|
 
 |홈 화면|목적지 검색|경로탐색|
 |:----:|:----:|:----:|
