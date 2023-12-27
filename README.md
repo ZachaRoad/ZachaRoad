@@ -1,5 +1,5 @@
 # 카카오 모빌리티: 네모톤 - 자차로드
-<img src = "https://github.com/Changhyun-Kyle/ZachaRoad/assets/101093592/5d6ad479-dd5d-4e46-901f-1326d546547a">
+![1 (1)](https://github.com/ZachaRoad/ZachaRoad/assets/101093592/caec5ba2-715f-49ec-b7db-5612d7ae57e1)
 
 ## 📖 목차
 - [🚘 프로젝트 소개](#-프로젝트-소개)
